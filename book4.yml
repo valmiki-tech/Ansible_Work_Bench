@@ -1,0 +1,25 @@
+---
+ - name: configure apache httpd web server
+   hosts: node1
+   tasks:
+     - name: install httpd wget and unzip
+       yum:
+         name:
+           - httpd
+           - wget
+           - unzip
+         state: present
+     - name: start httpd
+       service:
+         name: httpd
+         state: started
+     - name: enable httpd
+       service:
+         name: httpd
+         enabled: yes
+     - name: download free website template
+       command: wget https://www.free-css.com/assets/files/free-css-templates/download/page294/artxibition.zip
+     - name: extract zip file
+       command: unzip artxibition.zip
+     - name: copy all website content and paste into apache home directory
+       shell: cp -rvf 2125_artxibition/* /var/www/html/

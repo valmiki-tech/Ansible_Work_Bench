@@ -1,0 +1,48 @@
+---
+ - name: manage container using ansible
+   hosts: node3
+   ignore_errors: yes
+   tasks:
+     - name: install docker 
+       package:
+         name: docker 
+         state: present
+     - name: start and enable docker
+       service:
+         name: docker 
+         state: started
+         enabled: yes
+     - name: create directory /project
+       file:
+         path: /project
+         state: directory
+     - name: transfer dockerfile
+       copy:
+         src: Dockerfile
+         dest: /project/
+     - name: stop or kill running container
+       shell: docker kill $(docker ps -aq)
+     - name: remove existing container
+       shell: docker rm $(docker ps -aq)
+     - name: create image from dockerfile
+       shell: cd /project; docker build -t cake .
+     - name: run container from created image
+       shell: docker run -dt --name=c1 -t -p 81:80 cake
+     - name: create directory project2
+       file: 
+         path: /project2
+         state: directory
+     - name: install wget and unzip
+       yum:
+         name:
+           - unzip
+           - wget
+         state: present
+     - name: download free website template
+       command: wget https://www.free-css.com/assets/files/free-css-templates/download/page291/atlas.zip
+     - name: extract web template
+       command: unzip atlas.zip
+     - name: copy all containt into project2
+       shell: cp -rvf Atlas/* /project2/
+     - name: create container and host website of restorent
+       shell: docker run -dt --name=c2 -t -p 82:80 -v /project2/:/usr/share/nginx/html/ --privileged=true nginx

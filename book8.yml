@@ -1,0 +1,10 @@
+---
+ - name: manage package using variable
+   hosts: all
+   vars:
+     p: httpd
+   tasks:
+     - name: install package {{ p }}
+       yum:
+         name: "{{ p }}"
+         state: present

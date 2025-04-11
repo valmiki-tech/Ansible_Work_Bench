@@ -1,0 +1,15 @@
+---
+ - name: remove packages
+   hosts: all
+   vars:
+     p:
+       - httpd
+       - wget
+       - unzip
+       - docker
+       - nginx
+   tasks:
+     - name: remove packages {{ p }}
+       package:
+         name: "{{ p }}"
+         state: absent

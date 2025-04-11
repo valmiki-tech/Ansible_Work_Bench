@@ -1,0 +1,15 @@
+---
+ - name: create user accounts
+   hosts: all
+   vars:
+     u:
+       - hpuser1
+       - hpuser2
+       - hpuser3
+       - hpuser4
+   tasks:
+     - name: create users
+       user:
+         name: "{{ item }}"
+         state: present
+       loop: "{{ u }}"  

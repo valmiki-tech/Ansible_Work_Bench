@@ -1,0 +1,13 @@
+---
+ - name: create user accounts
+   hosts: all
+   tasks:
+     - name: create users
+       user:
+         name: "{{ item }}"
+         state: present
+       loop:
+         - auser1
+         - auser2
+         - auser3
+         - auser4

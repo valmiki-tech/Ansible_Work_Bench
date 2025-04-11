@@ -1,0 +1,22 @@
+---
+ - name: configure apache nginx web server
+   hosts: all
+   tasks:
+     - name: install nginx wget and unzip
+       dnf:
+         name:
+           - nginx
+           - wget
+           - unzip
+         state: present
+     - name: start and enable nginx
+       service:
+         name: nginx
+         state: started
+         enabled: yes
+     - name: download free website template
+       command: wget https://www.free-css.com/assets/files/free-css-templates/download/page296/healet.zip
+     - name: extract zip file
+       command: unzip healet.zip
+     - name: copy all website content into nginx home directory
+       shell: cp -rvf healet-html/* /usr/share/nginx/html/

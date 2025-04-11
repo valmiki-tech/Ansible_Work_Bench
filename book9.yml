@@ -1,0 +1,19 @@
+---
+ - name: use array type of variable
+   hosts: all 
+   vars:
+     c:
+       - china
+       - india
+       - america
+       - africa
+       - srilanka
+       - bangladesh
+       - nepal
+       - pakisthan
+       - bhutan
+   tasks:
+     - name: display array type of variable
+       debug:
+         msg: "{{ c[3:6] }}"
+

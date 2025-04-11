@@ -1,0 +1,9 @@
+---
+ - name: display variable
+   hosts: all 
+   vars:
+     a: China
+   tasks:
+     - name: display a variable
+       debug:
+         msg: "{{ a }}"

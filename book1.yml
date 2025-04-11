@@ -1,0 +1,8 @@
+---
+ - name: manage user account
+   hosts: all
+   tasks:
+     - name: create user account user1
+       user:
+         name: user1
+         state: present

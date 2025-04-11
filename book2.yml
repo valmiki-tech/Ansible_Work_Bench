@@ -1,0 +1,8 @@
+---
+ - name: manage group account
+   hosts: all
+   tasks:
+     - name: create group group1
+       group: 
+         name: group1
+         state: present
